@@ -1,4 +1,5 @@
 version: '3.5'
+# global env TZ=Europe/Berlin
 services:
  zabbix-server:
   image: zabbix/zabbix-server-mysql:alpine-5.2-latest
