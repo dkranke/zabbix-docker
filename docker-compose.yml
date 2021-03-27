@@ -7,13 +7,13 @@ services:
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - /etc/timezone:/etc/timezone:ro 
-   - ./zbx_env/usr/lib/zabbix/alertscripts:/usr/lib/zabbix/alertscripts:ro
-   - ./zbx_env/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
-   - ./zbx_env/var/lib/zabbix/export:/var/lib/zabbix/export:rw
-   - ./zbx_env/var/lib/zabbix/modules:/var/lib/zabbix/modules:ro
-   - ./zbx_env/var/lib/zabbix/enc:/var/lib/zabbix/enc:ro
-   - ./zbx_env/var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys:ro
-   - ./zbx_env/var/lib/zabbix/mibs:/var/lib/zabbix/mibs:ro
+   - zbx_env_alertscripts:/usr/lib/zabbix/alertscripts:ro
+   - zbx_env_externalscripts:/usr/lib/zabbix/externalscripts:ro
+   - zbx_env_export:/var/lib/zabbix/export:rw
+   - zbx_env_var_modules:/var/lib/zabbix/modules:ro
+   - zbx_env_enc:/var/lib/zabbix/enc:ro
+   - zbx_env_ssh_keys:/var/lib/zabbix/ssh_keys:ro
+   - zbx_env_mibs:/var/lib/zabbix/mibs:ro
    - snmptraps:/var/lib/zabbix/snmptraps:rw
   env_file:
    - .env_db_mysql
@@ -48,11 +48,11 @@ services:
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - /etc/timezone:/etc/timezone:ro 
-   - ./zbx_env/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
-   - ./zbx_env/var/lib/zabbix/modules:/var/lib/zabbix/modules:ro
-   - ./zbx_env/var/lib/zabbix/enc:/var/lib/zabbix/enc:ro
-   - ./zbx_env/var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys:ro
-   - ./zbx_env/var/lib/zabbix/mibs:/var/lib/zabbix/mibs:ro
+   - zbx_env_externalscripts:/usr/lib/zabbix/externalscripts:ro
+   - zbx_env_var_modules:/var/lib/zabbix/modules:ro
+   - zbx_env_enc:/var/lib/zabbix/enc:ro
+   - zbx_env_ssh_keys:/var/lib/zabbix/ssh_keys:ro
+   - zbx_env_mibs:/var/lib/zabbix/mibs:ro
    - snmptraps:/var/lib/zabbix/snmptraps:rw
   env_file:
    - .env_prx
@@ -76,11 +76,11 @@ services:
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - /etc/timezone:/etc/timezone:ro
-   - ./zbx_env/usr/lib/zabbix/externalscripts:/usr/lib/zabbix/externalscripts:ro
-   - ./zbx_env/var/lib/zabbix/modules:/var/lib/zabbix/modules:ro
-   - ./zbx_env/var/lib/zabbix/enc:/var/lib/zabbix/enc:ro
-   - ./zbx_env/var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys:ro
-   - ./zbx_env/var/lib/zabbix/mibs:/var/lib/zabbix/mibs:ro
+   - zbx_env_externalscripts:/usr/lib/zabbix/externalscripts:ro
+   - zbx_env_var_modules:/var/lib/zabbix/modules:ro
+   - zbx_env_enc:/var/lib/zabbix/enc:ro
+   - zbx_env_ssh_keys:/var/lib/zabbix/ssh_keys:ro
+   - zbx_env_mibs:/var/lib/zabbix/mibs:ro
    - snmptraps:/var/lib/zabbix/snmptraps:rw
   env_file:
    - .env_db_mysql_proxy
@@ -111,8 +111,8 @@ services:
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - /etc/timezone:/etc/timezone:ro
-   - ./zbx_env/etc/ssl/apache2:/etc/ssl/apache2:ro
-   - ./zbx_env/usr/share/zabbix/modules/:/usr/share/zabbix/modules/:ro
+   - zbx_env_apache2:/etc/ssl/apache2:ro
+   - zbx_env_share_modules:/usr/share/zabbix/modules/:ro
   env_file:
    - .env_db_mysql
    - .env_web
@@ -147,8 +147,8 @@ services:
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - /etc/timezone:/etc/timezone:ro
-   - ./zbx_env/etc/ssl/nginx:/etc/ssl/nginx:ro
-   - ./zbx_env/usr/share/zabbix/modules/:/usr/share/zabbix/modules/:ro
+   - zbx_env_nginx:/etc/ssl/nginx:ro
+   - zbx_env_share_modules:/usr/share/zabbix/modules/:ro
   env_file:
    - .env_db_mysql
    - .env_web
@@ -182,10 +182,10 @@ services:
   volumes:
    - /etc/localtime:/etc/localtime:ro
    - /etc/timezone:/etc/timezone:ro
-   - ./zbx_env/etc/zabbix/zabbix_agentd.d:/etc/zabbix/zabbix_agentd.d:ro
-   - ./zbx_env/var/lib/zabbix/modules:/var/lib/zabbix/modules:ro
-   - ./zbx_env/var/lib/zabbix/enc:/var/lib/zabbix/enc:ro
-   - ./zbx_env/var/lib/zabbix/ssh_keys:/var/lib/zabbix/ssh_keys:ro
+   - zbx_env_zabbix_agentd:/etc/zabbix/zabbix_agentd.d:ro
+   - zbx_env_var_modules:/var/lib/zabbix/modules:ro
+   - zbx_env_enc:/var/lib/zabbix/enc:ro
+   - zbx_env_ssh_keys:/var/lib/zabbix/ssh_keys:ro
   env_file:
    - .env_agent
   privileged: true
@@ -231,7 +231,7 @@ services:
    - --collation-server=utf8_bin
    - --default-authentication-plugin=mysql_native_password
   volumes:
-   - ./zbx_env/var/lib/mysql:/var/lib/mysql:rw
+   - zbx_env_mysql:/var/lib/mysql:rw
   env_file:
    - .env_db_mysql
   secrets:
@@ -249,7 +249,7 @@ services:
  db_data_mysql:
   image: busybox
   volumes:
-   - ./zbx_env/var/lib/mysql:/var/lib/mysql:rw
+   - zbx_env_mysql:/var/lib/mysql:rw
 
 networks:
   zbx_net_frontend:
@@ -267,6 +267,18 @@ networks:
       - subnet: 172.16.239.0/24
 
 volumes:
+  zbx_env_alertscripts:
+  zbx_env_externalscripts:
+  zbx_env_export:
+  zbx_env_var_modules:
+  zbx_env_enc:
+  zbx_env_ssh_keys:
+  zbx_env_mibs:
+  zbx_env_apache2:
+  zbx_env_share_modules:
+  zbx_env_nginx:
+  zbx_env_zabbix_agentd:
+  zbx_env_mysql:
   snmptraps:
 
 secrets:
