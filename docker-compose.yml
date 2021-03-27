@@ -4,9 +4,7 @@ services:
   image: zabbix/zabbix-server-mysql:alpine-5.2-latest
   ports:
    - "10051:10051"
-  volumes:
-   - /etc/localtime:/etc/localtime:ro
-   - /etc/timezone:/etc/timezone:ro 
+  volumes: 
    - zbx_env_alertscripts:/usr/lib/zabbix/alertscripts:ro
    - zbx_env_externalscripts:/usr/lib/zabbix/externalscripts:ro
    - zbx_env_export:/var/lib/zabbix/export:rw
@@ -45,9 +43,7 @@ services:
   image: zabbix/zabbix-proxy-sqlite3:alpine-5.2-latest
   ports:
    - "10061:10051"
-  volumes:
-   - /etc/localtime:/etc/localtime:ro
-   - /etc/timezone:/etc/timezone:ro 
+  volumes: 
    - zbx_env_externalscripts:/usr/lib/zabbix/externalscripts:ro
    - zbx_env_var_modules:/var/lib/zabbix/modules:ro
    - zbx_env_enc:/var/lib/zabbix/enc:ro
@@ -74,8 +70,6 @@ services:
   ports:
    - "10071:10051"
   volumes:
-   - /etc/localtime:/etc/localtime:ro
-   - /etc/timezone:/etc/timezone:ro
    - zbx_env_externalscripts:/usr/lib/zabbix/externalscripts:ro
    - zbx_env_var_modules:/var/lib/zabbix/modules:ro
    - zbx_env_enc:/var/lib/zabbix/enc:ro
@@ -109,8 +103,6 @@ services:
    - "80:8080"
    - "443:8443"
   volumes:
-   - /etc/localtime:/etc/localtime:ro
-   - /etc/timezone:/etc/timezone:ro
    - zbx_env_apache2:/etc/ssl/apache2:ro
    - zbx_env_share_modules:/usr/share/zabbix/modules/:ro
   env_file:
@@ -145,8 +137,6 @@ services:
    - "8081:8080"
    - "8443:8443"
   volumes:
-   - /etc/localtime:/etc/localtime:ro
-   - /etc/timezone:/etc/timezone:ro
    - zbx_env_nginx:/etc/ssl/nginx:ro
    - zbx_env_share_modules:/usr/share/zabbix/modules/:ro
   env_file:
@@ -180,8 +170,6 @@ services:
   ports:
    - "10050:10050"
   volumes:
-   - /etc/localtime:/etc/localtime:ro
-   - /etc/timezone:/etc/timezone:ro
    - zbx_env_zabbix_agentd:/etc/zabbix/zabbix_agentd.d:ro
    - zbx_env_var_modules:/var/lib/zabbix/modules:ro
    - zbx_env_enc:/var/lib/zabbix/enc:ro
